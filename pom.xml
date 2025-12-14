@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.sme</groupId>
-	<artifactId>sme-demo</artifactId>
+	<artifactId>surya-cart-smart-contact-manager</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>AngularSpringEmployee-1</name>
 	<description>smart Contact manager spring boot</description>
@@ -43,12 +43,6 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
