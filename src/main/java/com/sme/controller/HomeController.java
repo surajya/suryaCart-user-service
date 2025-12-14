@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
-public class Home {
+public class HomeController {
 
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
