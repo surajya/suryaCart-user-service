@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.sme</groupId>
-	<artifactId>surya-cart-smart-contact-manager</artifactId>
+	<artifactId>suryaCart-user-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>AngularSpringEmployee-1</name>
+	<name>suryaCart-user-service</name>
 	<description>smart Contact manager spring boot</description>
 	<url/>
 	<licenses>
