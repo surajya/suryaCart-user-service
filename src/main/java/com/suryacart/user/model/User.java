@@ -1,4 +1,4 @@
-package com.sme.model;
+package com.suryacart.user.model;
 
 import java.util.List;
 

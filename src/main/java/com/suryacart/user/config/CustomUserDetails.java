@@ -1,4 +1,4 @@
-package com.sme.config;
+package com.suryacart.user.config;
 
 import java.util.Collection;
 import java.util.List;
@@ -7,26 +7,25 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.sme.model.User;
+import com.suryacart.user.model.User;
 
 public class CustomUserDetails implements UserDetails {
 
-	
-	
 	User user;
+
 	public CustomUserDetails(User user) {
 		super();
 
-		this.user=user;
+		this.user = user;
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		
+
 		SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(user.getRole());
-		
+
 		return List.of(simpleGrantedAuthority);
-				
+
 	}
 
 	@Override

@@ -1,9 +1,7 @@
-package com.sme.controller;
+package com.suryacart.user.controller;
 
 import java.security.Principal;
 
-import com.sme.model.Contacts;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,9 +9,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.sme.model.User;
-import com.sme.repository.UserRepositoryImpl;
-import org.springframework.web.multipart.MultipartFile;
+import com.suryacart.user.model.Contacts;
+import com.suryacart.user.model.User;
+import com.suryacart.user.repository.UserRepositoryImpl;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
@@ -26,7 +26,8 @@ public class UserController {
 	UserController(UserRepositoryImpl uri) {
 		userRepositoryImpl = uri;
 	}
-	//method for common data binding
+
+	// method for common data binding
 	@ModelAttribute
 	public void getCommonData(Model model, Principal principal) {
 		String name = principal.getName();
@@ -35,16 +36,14 @@ public class UserController {
 		model.addAttribute("user", userName);
 	}
 
-
-
-	//UserDashboard home
+	// UserDashboard home
 	@GetMapping("/index")
 	public String userDashboard(Model model, Principal principal) {
 		model.addAttribute("title", "User Dashboard");
 		return "/normal/User_DashBoard";
 	}
 
-	//open add-form handler
+	// open add-form handler
 	@GetMapping("/addContact")
 	public String openAddContactForm(Model model, Principal principal) {
 		model.addAttribute("title", "Add Contact");
@@ -52,7 +51,7 @@ public class UserController {
 		return "/normal/add_contact_form";
 	}
 
-	//Handle process of contact details
+	// Handle process of contact details
 	@PostMapping("/process-contact")
 	public String processContact(@ModelAttribute("addContact") Contacts contacts, Principal principal) {
 
