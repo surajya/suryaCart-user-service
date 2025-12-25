@@ -1,7 +1,14 @@
-spring.application.name=Smart Contact Manager Sept
-spring.datasource.url=jdbc:postgresql://localhost:5432/sme
-spring.datasource.username=postgres
-spring.datasource.password=root
-spring.jpa.hibernate.ddl-auto=update
-
-spring.main.allow-bean-definition-overriding=true
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/suryacart_user
+    username: postgres
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  main:
+    allow-bean-definition-overriding: true
