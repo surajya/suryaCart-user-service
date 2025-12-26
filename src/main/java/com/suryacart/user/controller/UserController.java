@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.suryacart.user.model.Contacts;
-import com.suryacart.user.model.User;
+import com.suryacart.user.model.entity.Contacts;
+import com.suryacart.user.model.entity.User;
 import com.suryacart.user.repository.UserRepositoryImpl;
 
 import lombok.extern.slf4j.Slf4j;

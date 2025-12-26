@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.suryacart.user.model.User;
+import com.suryacart.user.model.entity.User;
 import com.suryacart.user.repository.UserRepositoryImpl;
 
 public class CustomUserDetailsService implements UserDetailsService {

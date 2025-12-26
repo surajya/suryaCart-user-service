@@ -1,16 +1,19 @@
-package com.suryacart.user.model;
+package com.suryacart.user.model.entity;
 
 import java.util.List;
+
+import com.suryacart.user.Constant.Role;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -18,39 +21,41 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
-
-@Setter
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
 
 @Entity
-@Table(name = "USERS")
+@Table(name = "users")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
-	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int Id;
-	@NotBlank(message = "Name must be required")
-	@Size(min = 2,max = 20, message = "Size must be between 2 - 20 character")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	@NotBlank
+	@Size(min = 2, max = 20)
 	private String name;
-	
-	@Column(unique = true)
-	@NotBlank(message="Email must be required")
+
+	@Column(unique = true, nullable = false)
 	@Email
 	private String email;
-	
-	@NotBlank(message = "Password must be required")
-	@Size(min = 3,max = 60, message = "password.register.size")
+
+	@NotBlank
+	@Size(min = 8, max = 60)
 	private String password;
+
 	private String image;
-	private String role;
-	private String isEnable;
+
+	@Enumerated(EnumType.STRING)
+	private Role role;
+
+	private boolean enabled;
+
 	@Column(length = 1000)
 	private String information;
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Contacts> contacts;
 }

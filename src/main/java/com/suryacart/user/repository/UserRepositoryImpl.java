@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.suryacart.user.model.User;
+import com.suryacart.user.model.entity.User;
 
 public interface UserRepositoryImpl extends JpaRepository<User, Integer> {
 

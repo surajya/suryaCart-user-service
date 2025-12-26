@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.suryacart.user.Constant.Role;
 import com.suryacart.user.helper.Message;
-import com.suryacart.user.model.User;
+import com.suryacart.user.model.entity.User;
 import com.suryacart.user.repository.UserRepositoryImpl;
 
 import jakarta.servlet.http.HttpSession;
@@ -60,8 +61,8 @@ public class HomeController {
 			}
 
 			user.setImage("This is image");
-			user.setIsEnable("true");
-			user.setRole("ROLE_USER");
+			user.setEnabled(true);
+			user.setRole(Role.USER);
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
 
 			User newUser = userRepositoryImpl.save(user);
