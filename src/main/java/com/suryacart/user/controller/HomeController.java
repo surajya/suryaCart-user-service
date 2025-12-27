@@ -1,4 +1,4 @@
-package com.sme.controller;
+package com.suryacart.user.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.sme.helper.Message;
-import com.sme.model.User;
-import com.sme.repository.UserRepositoryImpl;
+import com.suryacart.user.Constant.Role;
+import com.suryacart.user.helper.Message;
+import com.suryacart.user.model.entity.User;
+import com.suryacart.user.repository.UserRepositoryImpl;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -60,8 +61,8 @@ public class HomeController {
 			}
 
 			user.setImage("This is image");
-			user.setIsEnable("true");
-			user.setRole("ROLE_USER");
+			user.setEnabled(true);
+			user.setRole(Role.USER);
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
 
 			User newUser = userRepositoryImpl.save(user);

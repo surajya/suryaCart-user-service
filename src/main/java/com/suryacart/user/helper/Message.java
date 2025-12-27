@@ -1,4 +1,4 @@
-package com.sme.helper;
+package com.suryacart.user.helper;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
