@@ -10,58 +10,40 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.suryacart.user.model.entity.Contacts;
-import com.suryacart.user.model.entity.User;
-import com.suryacart.user.repository.UserRepositoryImpl;
+import com.suryacart.user.service.ContactService;
+import com.suryacart.user.service.UserService;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 
-@Slf4j
+@RequiredArgsConstructor
 @Controller
-
 @RequestMapping("/userControll")
 public class UserController {
 
-	UserRepositoryImpl userRepositoryImpl;
+	private final UserService userService;
+	private final ContactService contactService;
 
-	UserController(UserRepositoryImpl uri) {
-		userRepositoryImpl = uri;
-	}
-
-	// method for common data binding
 	@ModelAttribute
 	public void getCommonData(Model model, Principal principal) {
-		String name = principal.getName();
-		User userName = userRepositoryImpl.getUserByUserName(name);
-		// System.out.println(userName);
-		model.addAttribute("user", userName);
+		model.addAttribute("user", userService.findByUsername(principal.getName()));
 	}
 
-	// UserDashboard home
 	@GetMapping("/index")
-	public String userDashboard(Model model, Principal principal) {
+	public String userDashboard(Model model) {
 		model.addAttribute("title", "User Dashboard");
 		return "/normal/User_DashBoard";
 	}
 
-	// open add-form handler
 	@GetMapping("/addContact")
-	public String openAddContactForm(Model model, Principal principal) {
+	public String openAddContactForm(Model model) {
 		model.addAttribute("title", "Add Contact");
 		model.addAttribute("addContact", new Contacts());
 		return "/normal/add_contact_form";
 	}
 
-	// Handle process of contact details
 	@PostMapping("/process-contact")
 	public String processContact(@ModelAttribute("addContact") Contacts contacts, Principal principal) {
-
-		User user = userRepositoryImpl.getUserByUserName(principal.getName());
-		contacts.setUser(user);
-		user.getContacts().add(contacts);
-		userRepositoryImpl.save(user);
-		log.info("information about user:{}", user);
-		log.info("information about contact:{}", contacts);
+		contactService.addContactToUser(contacts, principal.getName());
 		return "/normal/add_contact_form";
 	}
-
 }
