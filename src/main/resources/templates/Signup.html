@@ -31,7 +31,7 @@
 							<!-- Here Name -->
 							<div class="form-group">
 								<label for="exampleInputEmail1">User Name</label> <input
-									type="text" class="form-control" id="exampleInputEmail1"
+									type="text" class="form-control" th:field="*{name}"
 									name="name" th:value="${userDTO.name}" th:classappend="${#fields.hasErrors('name')? 'is-invalid':''}" placeholder="Enter name">
 									
 									<div  th:each="e:${#fields.errors('name')}" th:text="${e}" class="invalid-feedback"></div>
@@ -40,7 +40,7 @@
 							<!-- Here Email -->
 							<div class="form-group">
 								<label for="exampleInputEmail1">Email address</label> <input
-									type="email" class="form-control" id="exampleInputEmail1"
+									type="email" class="form-control" th:field="*{email}"
 									aria-describedby="emailHelp" name="email" th:classappend="${#fields.hasErrors('email')? 'is-invalid':''}"
 									th:value="${userDTO.email}" placeholder="Enter email">
 									
@@ -51,7 +51,7 @@
 							<!-- Enter password -->
 							<div class="form-group">
 								<label for="exampleInputPassword1">Password</label> <input
-									type="password" class="form-control" id="exampleInputPassword1"
+									type="password" class="form-control" th:field="*{password}"
 									th:classappend="${#fields.hasErrors('password')? 'is-invalid':''}"
 									name="password" placeholder="Password">
 
@@ -63,6 +63,7 @@
 							<div class="form-group">
 								<label for="role">Role</label> <select class="form-control"
 									id="role" name="role"
+									th:field="*{role}"
 									th:classappend="${#fields.hasErrors('role') ? 'is-invalid' : ''}"
 									th:value="${userDTO.role}">
 

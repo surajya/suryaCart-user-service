@@ -36,7 +36,7 @@ public class HomeController {
 	}
 
 	@PostMapping("/do_register")
-	public String getRegister(@Valid @ModelAttribute("user") UserDTO userDTO, BindingResult result,
+	public String getRegister(@Valid @ModelAttribute("userDTO") UserDTO userDTO, BindingResult result,
 			@RequestParam(value = "agreement", defaultValue = "false") boolean check, HttpSession session,
 			Model model) {
 
