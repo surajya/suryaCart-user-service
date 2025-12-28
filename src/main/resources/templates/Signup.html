@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	th:replace="base::layout(~{::section})">
+	th:replace="~{base::layout(~{::section})}">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -26,13 +26,13 @@
 
 						<h1 class="text-center">Register Here !!</h1>
 						<form th:action="@{/do_register}" th:method="post"
-							th:object="${user}">
+							th:object="${userDTO}">
 
 							<!-- Here Name -->
 							<div class="form-group">
 								<label for="exampleInputEmail1">User Name</label> <input
-									type="text" class="form-control" id="exampleInputEmail1"
-									name="name" th:value="${user.name}" th:classappend="${#fields.hasErrors('name')? 'is-invalid':''}" placeholder="Enter name">
+									type="text" class="form-control" th:field="*{name}"
+									name="name" th:value="${userDTO.name}" th:classappend="${#fields.hasErrors('name')? 'is-invalid':''}" placeholder="Enter name">
 									
 									<div  th:each="e:${#fields.errors('name')}" th:text="${e}" class="invalid-feedback"></div>
 							</div>
@@ -40,9 +40,9 @@
 							<!-- Here Email -->
 							<div class="form-group">
 								<label for="exampleInputEmail1">Email address</label> <input
-									type="email" class="form-control" id="exampleInputEmail1"
+									type="email" class="form-control" th:field="*{email}"
 									aria-describedby="emailHelp" name="email" th:classappend="${#fields.hasErrors('email')? 'is-invalid':''}"
-									th:value="${user.email}" placeholder="Enter email">
+									th:value="${userDTO.email}" placeholder="Enter email">
 									
 									<div  th:each="e:${#fields.errors('email')}" th:text="${e}" class="invalid-feedback"></div>
 
@@ -51,17 +51,38 @@
 							<!-- Enter password -->
 							<div class="form-group">
 								<label for="exampleInputPassword1">Password</label> <input
-									type="password" class="form-control" id="exampleInputPassword1" th:classappend="${#fields.hasErrors('password')? 'is-invalid':''}"
+									type="password" class="form-control" th:field="*{password}"
+									th:classappend="${#fields.hasErrors('password')? 'is-invalid':''}"
 									name="password" placeholder="Password">
-									
-									<div  th:each="e:${#fields.errors('password')}" th:text="${e}" class="invalid-feedback"></div>
+
+								<div th:each="e:${#fields.errors('password')}" th:text="${e}"
+									class="invalid-feedback"></div>
+							</div>
+
+							<!-- Here Role -->
+							<div class="form-group">
+								<label for="role">Role</label> <select class="form-control"
+									id="role" name="role"
+									th:field="*{role}"
+									th:classappend="${#fields.hasErrors('role') ? 'is-invalid' : ''}"
+									th:value="${userDTO.role}">
+
+									<option value="">-- Select Role --</option>
+									<option value="USER" th:selected="${userDTO.role == 'USER'}">User</option>
+									<option value="ADMIN" th:selected="${userDTO.role == 'ADMIN'}">Admin</option>
+									<option value="OTHER" th:selected="${userDTO.role == 'OTHER'}">Other</option>
+								</select>
+
+								<div th:each="e : ${#fields.errors('role')}" th:text="${e}"
+									class="invalid-feedback"></div>
 							</div>
 
 							<!-- Discription Area -->
 							<div class="form-group">
 								<label for="about user information">Introduction</label>
 								<textarea name="information" id="" cols="30" rows="6"
-									class="form-control" th:value="${user.information}" placeholder="Enter something yourself"></textarea>
+									class="form-control" th:value="${userDTO.information}"
+									placeholder="Enter something yourself"></textarea>
 							</div>
 
 							<!-- check box are -->

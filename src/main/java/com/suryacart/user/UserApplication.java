@@ -4,11 +4,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SmartContactManagerApplication {
+public class UserApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SmartContactManagerApplication.class, args);
-		System.out.println("started.............");
+		SpringApplication.run(UserApplication.class, args);
+		System.out.println("started............");
 	}
 
 }
