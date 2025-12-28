@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.suryacart.user.helper.Message;
-import com.suryacart.user.model.entity.User;
+import com.suryacart.user.model.dto.UserDTO;
 import com.suryacart.user.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
@@ -31,12 +31,12 @@ public class HomeController {
 	@GetMapping("/Signup")
 	public String SignUpan(Model model) {
 		model.addAttribute("title", "Sign UP here");
-		model.addAttribute("user", new User());
+		model.addAttribute("userDTO", new UserDTO());
 		return "Signup";
 	}
 
 	@PostMapping("/do_register")
-	public String getRegister(@Valid @ModelAttribute("user") User user, BindingResult result,
+	public String getRegister(@Valid @ModelAttribute("user") UserDTO userDTO, BindingResult result,
 			@RequestParam(value = "agreement", defaultValue = "false") boolean check, HttpSession session,
 			Model model) {
 
@@ -45,17 +45,17 @@ public class HomeController {
 				throw new Exception("You must agree to terms");
 
 			if (result.hasErrors()) {
-				model.addAttribute("user", user);
+				model.addAttribute("userDTO", userDTO);
 				return "Signup";
 			}
 
-			userService.register(user);
+			userService.registerUser(userDTO);
 			session.setAttribute("message", new Message("Successfully sign up!!", "alert-success"));
-			model.addAttribute("user", new User());
+			model.addAttribute("userDTO", new UserDTO());
 
 		} catch (Exception e) {
 			session.setAttribute("message", new Message("Error: " + e.getMessage(), "alert-danger"));
-			model.addAttribute("user", user);
+			model.addAttribute("userDTO", userDTO);
 		}
 
 		return "Signup";

@@ -2,12 +2,31 @@ package com.suryacart.user.model.dto;
 
 import com.suryacart.user.Constant.Role;
 
-public class UserDTO {
-	public record UserRegisterRequest(String name, String email, String password) {
-	}
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-	public record UserResponse(Long id, String name, String email, Role role, boolean enabled, String image,
-			String information) {
-	}
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserDTO {
+
+	private Long id;
+
+	private String name;
+
+	private String email;
+
+	private String password;
+
+	private String image;
+
+	private Role role;
+
+	private boolean enabled;
+
+	private String information;
 
 }
