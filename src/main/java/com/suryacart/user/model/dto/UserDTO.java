@@ -1,7 +1,5 @@
 package com.suryacart.user.model.dto;
 
-import com.suryacart.user.Constant.Role;
-
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -30,7 +28,7 @@ public class UserDTO {
 	private String password;
 
 	@NotNull(message = "Role is required")
-	private Role role;
+	private String role;
 
 	@Size(min = 5, max = 1000, message = "Information must be between 5 and 1000 characters")
 	@NotBlank(message = "Information is required")

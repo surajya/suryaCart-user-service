@@ -33,19 +33,8 @@ public class MyConfig {
 		return daoAuthenticationProvider;
 	}
 
-//	@Override
-//	public Filter springSecurityFilterChain() throws Exception {
-//		// TODO Auto-generated method stub
-//		return super.springSecurityFilterChain();
-//	}
-
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//		http.csrf(csrf -> csrf.disable())
-//				.authorizeHttpRequests(requests -> requests.requestMatchers("/admin/**").hasRole("admin")
-//						.requestMatchers("/userControll/**").hasRole("USER").requestMatchers("/**").permitAll())
-//				.formLogin(login -> login.loginPage("/Signup").loginProcessingUrl("/doLogin")
-//						.defaultSuccessUrl("/user/normal"));
 
 		http.csrf(csrf -> csrf.disable())
 				.authorizeHttpRequests(requests -> requests.requestMatchers("/admin/**").hasRole("ADMIN")

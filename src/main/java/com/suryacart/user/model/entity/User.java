@@ -4,13 +4,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-import com.suryacart.user.Constant.Role;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -51,8 +47,7 @@ public class User {
 
 	private String image;
 
-	@Enumerated(EnumType.STRING)
-	private Role role;
+	private String role;
 
 	private boolean enabled;
 
