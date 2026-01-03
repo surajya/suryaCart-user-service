@@ -15,9 +15,11 @@ import com.suryacart.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
 @Controller
+@Slf4j
 public class HomeController {
 
 	private final UserService userService;
@@ -63,11 +65,8 @@ public class HomeController {
 
 	@GetMapping("/signin")
 	public String customlogin() {
+		log.info("OpenLogin page");
 		return "login";
 	}
 
-	@PostMapping("/dologin")
-	public String doLogin() {
-		return "login";
-	}
 }
