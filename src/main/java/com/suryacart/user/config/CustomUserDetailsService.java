@@ -17,19 +17,12 @@ public class CustomUserDetailsService implements UserDetailsService {
 		super();
 	}
 
-	public CustomUserDetailsService(UserRepositoryImpl userRepositoryImpl) {
-
-		this.userRepositoryImpl = userRepositoryImpl;
-	}
-
 	@Override
 	public UserDetails loadUserByUsername(String username) {
 		User userName = userRepositoryImpl.getUserByUserName(username);
 		if (userName == null) {
 			throw new UsernameNotFoundException("USER IS NOT FOUND !!");
 		}
-
-		CustomUserDetails customUserDetails = new CustomUserDetails(userName);
 
 		return new CustomUserDetails(userName);
 	}

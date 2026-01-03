@@ -65,12 +65,8 @@ public class HomeController {
 
 	@GetMapping("/signin")
 	public String customlogin() {
+		log.info("OpenLogin page");
 		return "login";
 	}
 
-	@PostMapping("/dologin")
-	public String doLogin() {
-		log.info("Login successful");
-		return "login";
-	}
 }
