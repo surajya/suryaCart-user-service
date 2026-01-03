@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
 		userMapper.mapUserDTOToUser(userDTO, user);
 		user.setImage("This is image");
 		user.setEnabled(true);
-		user.setRole("ROLE_" + userDTO.getRole());
+		user.setRole(userDTO.getRole());
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		return userRepository.save(user);
 	}
