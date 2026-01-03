@@ -6,16 +6,37 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
+import com.suryacart.user.model.entity.User;
+import com.suryacart.user.repository.UserRepositoryImpl;
 
 @Configuration
 @EnableWebSecurity
 public class MyConfig {
 
+	//@Bean
+	//	public UserDetailsService getUserDetailsService() {
+	//		return new CustomUserDetailsService();
+	//	}
+
 	@Bean
-	public UserDetailsService getUserDetailsService() {
-		return new CustomUserDetailsService();
+	public UserDetailsService userDetailsService(UserRepositoryImpl repo) {
+		return username -> {
+			User user = repo.getUserByUserName(username);
+
+			if (user == null) {
+				throw new UsernameNotFoundException("User not found");
+			}
+
+			return org.springframework.security.core.userdetails.User
+					.withUsername(user.getEmail())
+					.password(user.getPassword())
+					.roles(user.getRole())
+					.build();
+		};
 	}
 
 	@Bean
