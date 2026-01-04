@@ -8,7 +8,8 @@ import com.suryacart.user.model.entity.User;
 
 @Component
 public class UserMapper {
-	ModelMapper modelMapper;
+
+	private ModelMapper modelMapper;
 
 	public void mapUserDTOToUser(UserDTO userDTO, User user) {
 		modelMapper = new ModelMapper();

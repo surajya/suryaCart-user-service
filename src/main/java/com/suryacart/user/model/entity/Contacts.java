@@ -1,12 +1,12 @@
 package com.suryacart.user.model.entity;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
@@ -26,8 +26,8 @@ import lombok.Setter;
 public class Contacts {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@GeneratedValue
+	private UUID id;
 
 	private String name;
 	private String nickname;
@@ -44,6 +44,8 @@ public class Contacts {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private User user;
+
+	private String imageId;
 
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;

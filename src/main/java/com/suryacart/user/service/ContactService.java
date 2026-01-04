@@ -1,7 +1,8 @@
 package com.suryacart.user.service;
 
-import com.suryacart.user.model.entity.Contacts;
+import com.suryacart.user.model.dto.ContactDTO;
 
 public interface ContactService {
-	void addContactToUser(Contacts contacts, String username);
+
+	void addContactToUser(ContactDTO contactDTO, String username);
 }

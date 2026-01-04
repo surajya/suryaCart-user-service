@@ -28,37 +28,37 @@
                 <div class="row">
                     <div class="col-md-8 offset-md-2">
                         <form th:action="@{/userControll/process-contact}" method="post" enctype="multipart/form-data"
-                              th:object="${addContact}" class="mt-2">
+                              th:object="${contactDTO}" class="mt-2">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Full Name</label>
-                                <input type="text" class="form-control" id="name" name="cname" placeholder="Enter your name"
+                                <input type="text" th:field="*{name}" class="form-control" id="name" name="name" placeholder="Enter your name"
                                        required>
                             </div>
                             <div class="mb-3">
                                 <label for="nickname" class="form-label">Nickname</label>
-                                <input type="text" class="form-control" id="nickname" name="cnickname" placeholder="Enter your nickname">
+                                <input type="text" th:field="*{nickname}" class="form-control" id="nickname" name="nickname" placeholder="Enter your nickname">
                             </div>
                             <div class="mb-3">
                                 <label for="work" class="form-label">Work</label>
-                                <input type="text" class="form-control" id="work" name="cwork" placeholder="Enter your profession">
+                                <input type="text" th:field="*{work}" class="form-control" id="work" name="work" placeholder="Enter your profession">
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="cemail" placeholder="Enter your email"
+                                <input type="email" th:field="*{email}" class="form-control" id="email" name="email" placeholder="Enter your email"
                                        required>
                             </div>
                             <div class="mb-3">
                                 <label for="phone" class="form-label">Phone Number</label>
-                                <input type="tel" class="form-control" id="phone" name="cphoneNumber" placeholder="Enter your phone number"
+                                <input type="tel" th:field="*{phoneNumber}" class="form-control" id="phone" name="phoneNumber" placeholder="Enter your phone number"
                                        required>
                             </div>
                             <div class="mb-3">
                                 <label for="image" class="form-label">Upload Image</label>
-                                <input type="file" class="form-control" id="image" name="cimage" accept="image/*">
+                                <input type="file" class="form-control" id="image" name="image" accept="image/*">
                             </div>
                             <div class="mb-3">
                                 <label for="description" class="form-label">Description</label>
-                                <textarea class="form-control" id="description" rows="3" name="cdiscription"
+                                <textarea class="form-control" th:field="*{description}" id="description" rows="3" name="description"
                                           placeholder="Tell us something about yourself"></textarea>
                             </div>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-center">

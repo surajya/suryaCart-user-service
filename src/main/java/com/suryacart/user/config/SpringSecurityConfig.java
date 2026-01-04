@@ -19,7 +19,7 @@ import io.swagger.v3.oas.models.info.Info;
 
 @Configuration
 @EnableWebSecurity
-public class MyConfig {
+public class SpringSecurityConfig {
 
 	@Bean
 	public UserDetailsService userDetailsService(UserRepositoryImpl repo) {
