@@ -49,6 +49,8 @@ public class Contacts {
 
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
+	private String createdBy;
+	private String updatedBy;
 
 	@PrePersist
 	void onCreate() {
