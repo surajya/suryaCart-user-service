@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.suryacart.user.model.dto.ContactDTO;
 import com.suryacart.user.service.ContactService;
@@ -43,8 +45,10 @@ public class UserController {
 	}
 
 	@PostMapping("/process-contact")
-	public String processContact(@Valid @ModelAttribute("contactDTO") ContactDTO contactDTO, Principal principal) {
-		contactService.addContactToUser(contactDTO, principal.getName());
+	public String processContact(@Valid @ModelAttribute("contactDTO") ContactDTO contactDTO,
+			@RequestParam("image") MultipartFile imageFile,
+			Principal principal) {
+		contactService.addContactToUser(contactDTO, imageFile, principal.getName());
 		return "/normal/add_contact_form";
 	}
 }
