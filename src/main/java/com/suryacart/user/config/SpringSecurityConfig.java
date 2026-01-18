@@ -1,5 +1,6 @@
 package com.suryacart.user.config;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,14 +14,12 @@ import org.springframework.security.web.SecurityFilterChain;
 import com.suryacart.user.model.entity.User;
 import com.suryacart.user.repository.UserRepositoryImpl;
 
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+
 @Configuration
 @EnableWebSecurity
-public class MyConfig {
-
-	//@Bean
-	//	public UserDetailsService getUserDetailsService() {
-	//		return new CustomUserDetailsService();
-	//	}
+public class SpringSecurityConfig {
 
 	@Bean
 	public UserDetailsService userDetailsService(UserRepositoryImpl repo) {
@@ -61,6 +60,20 @@ public class MyConfig {
 				.loginPage("/signin").loginProcessingUrl("/dologin").defaultSuccessUrl("/userControll/index"));
 
 		return http.build();
+	}
+
+	@Bean
+	public OpenAPI productServiceOpenAPI() {
+		return new OpenAPI()
+				.info(new Info()
+						.title("SuryaCart Product Service API")
+						.description("Product management APIs for SuryaCart")
+						.version("v1.0"));
+	}
+
+	@Bean
+	public ModelMapper modelMapper() {
+		return new ModelMapper();
 	}
 
 }

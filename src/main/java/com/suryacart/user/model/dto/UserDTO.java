@@ -2,7 +2,6 @@ package com.suryacart.user.model.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,7 +26,7 @@ public class UserDTO {
 	@Size(min = 8, max = 60, message = "Password must be between 8 and 60 characters")
 	private String password;
 
-	@NotNull(message = "Role is required")
+	@NotBlank(message = "Role is required")
 	private String role;
 
 	@Size(min = 5, max = 1000, message = "Information must be between 5 and 1000 characters")
