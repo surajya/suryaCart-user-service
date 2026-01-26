@@ -8,22 +8,18 @@
         body {
             background-color: #f8f9fa;
         }
-
-        .form-container {
-            max-width: 500px;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            margin: 50px auto;
-        }
     </style>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 <body>
 <section>
     <div class="card mr-3 ml-3 ">
         <div class="card-body">
-            <h3 class="text-center mb-4">Add Contact</h3>
+        	<!-- Alert Message -->
+        	<div th:if="${session.message != null}" th:classappend="${session.message.type}" class="alert alert-primary" role="alert">
+                <span th:text="${session.message.content}"></span>
+                </div>
+            <h3 class="text-center mb-4">👤 Add 🆕 Contact</h3>
             <div class="container-fluid mt-1">
                 <div class="row">
                     <div class="col-md-8 offset-md-2">
@@ -56,12 +52,13 @@
                                 <label for="image" class="form-label">Upload Image</label>
                                 <input type="file" class="form-control" id="image" name="image" accept="image/*">
                             </div>
-                            <div class="mb-3">
-                                <label for="description" class="form-label">Description</label>
-                                <textarea class="form-control" th:field="*{description}" id="description" rows="3" name="description"
+								<div class="mb-3">
+								<label for="description" class="form-label">Description</label>
+                                <textarea class="form-control" th:field="*{description}" id="textarea" rows="3" name="description"
                                           placeholder="Tell us something about yourself"></textarea>
-                            </div>
-                            <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+									
+								</div>
+								<div class="d-grid gap-2 d-md-flex justify-content-md-center">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                                 <button type="reset" class="btn btn-secondary">Reset</button>
                             </div>
@@ -71,6 +68,34 @@
             </div>
         </div>
     </div>
+    
+<!-- TinyMCE CDN -->
+<!-- Place the first <script> tag in your HTML's <head> -->
+<script src="https://cdn.tiny.cloud/1/rg5xy9l2ffeimm5cukaxyo3ddd5kqxvv38uf7tfjv7558q4p/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script>
+
+<!-- Place the following <script> and <textarea> tags your HTML's <body> -->
+<script>
+  tinymce.init({
+    selector: 'textarea',
+    plugins: [
+      // Core editing features
+      'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
+      // Your account includes a free trial of TinyMCE premium features
+      // Try the most popular premium features until Feb 8, 2026:
+      'checklist', 'mediaembed', 'casechange', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'advtemplate', 'ai', 'uploadcare', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown','importword', 'exportword', 'exportpdf'
+    ],
+    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography uploadcare | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+    tinycomments_mode: 'embedded',
+    tinycomments_author: 'Author name',
+    mergetags_list: [
+      { value: 'First.Name', title: 'First Name' },
+      { value: 'Email', title: 'Email' },
+    ],
+    ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
+    uploadcare_public_key: 'b159ea9ef0504d58004f',
+  });
+</script>
+    
 </section>
 
 </body>

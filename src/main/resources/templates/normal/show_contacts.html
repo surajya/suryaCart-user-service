@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{normal/baseN::layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title th:text="${title}">Show Contacts</title>
+<link rel="stylesheet" th:href="@{/css/style.css}" />
+
+</head>
+
+<body>
+	<section>
+
+		<div class="card mr-3 ml-3 ">
+			<div class="card-body">
+				<div class="container">
+					<h2 class="text-center mb-4">📇 Your Contacts</h2>
+
+					<!-- When no contacts -->
+					<div th:if="${#lists.isEmpty(contacts)}"
+						class="alert alert-info text-center">No contacts found.
+						Please add a new contact.</div>
+
+					<!-- Contacts table -->
+					<div class="table-container" th:if="${!#lists.isEmpty(contacts)}">
+						<table class="table table-hover align-middle">
+							<thead class="table-light">
+								<tr>
+									<th>#</th>
+									<th>Photo</th>
+									<th>Name</th>
+									<th>Email</th>
+									<th>Phone</th>
+									<th>Work</th>
+									<th class="action-col">Actions</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								<tr th:each="contact, stat : ${contacts}">
+									<td th:text="${stat.count}">1</td>
+
+									<!-- Image -->
+									<td><strong th:text="${contact.imageId}">ImageID</strong><br>
+									</td>
+
+									<td><strong th:text="${contact.name}">Name</strong><br>
+										<small class="text-muted" th:text="${contact.nickname}">Nickname</small>
+									</td>
+
+									<td th:text="${contact.email}">email@gmail.com</td>
+									<td th:text="${contact.phoneNumber}">9999999999</td>
+									<td th:text="${contact.work}">Developer</td>
+
+									<!-- Actions -->
+									<td class="action-col"><a
+										th:href="@{'/contact/' + ${contact.id}}"
+										class="btn btn-sm btn-primary">View</a> <a
+										th:href="@{'/contact/edit/' + ${contact.id}}"
+										class="btn btn-sm btn-warning">Edit</a> <a
+										th:href="@{'/contact/delete/' + ${contact.id}}"
+										class="btn btn-sm btn-danger"
+										onclick="return confirm('Are you sure?')"> Delete </a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>
