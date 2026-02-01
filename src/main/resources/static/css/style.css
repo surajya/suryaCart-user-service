@@ -125,3 +125,38 @@ body {
     min-width: 220px;   /* adjust as needed */
     white-space: nowrap;
 }
+
+/* pagination for showing Contract  */
+.pagination {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    padding: 8px 14px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    color: #333;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.pagination a:hover {
+    background-color: #f0f0f0;
+}
+
+.pagination a.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+    cursor: default;
+}
+
+.pagination a.active {
+    pointer-events: none;
+}
+
+

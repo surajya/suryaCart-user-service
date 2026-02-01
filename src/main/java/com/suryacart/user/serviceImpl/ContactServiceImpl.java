@@ -6,9 +6,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -63,9 +68,28 @@ public class ContactServiceImpl implements ContactService {
 
 	}
 
-	public List<Contacts> getContactsByUser(String username) {
+	public Page<Contacts> getContactsByUser(String username, Pageable pageable) {
+
+		int pageSize = pageable.getPageSize();
+		int currentPage = pageable.getPageNumber();
+		int startItem = currentPage * pageSize;
+
 		User user = userRepository.getUserByUserName(username);
-		log.info("Fetching contacts for user: {} ", contractRepository.findByUserId(user.getId()));
-		return contractRepository.findByUserId(user.getId());
+		log.info("Fetching contacts for user: {} ", user.getName());
+		List<Contacts> contactsList = contractRepository.findByUserId(user.getId());
+
+		List<Contacts> list;
+
+		if (contactsList.size() < startItem) {
+			list = Collections.emptyList();
+		} else {
+			int toIndex = Math.min(startItem + pageSize, contactsList.size());
+			list = contactsList.subList(startItem, toIndex);
+		}
+
+		Page<Contacts> bookPage =
+				new PageImpl<Contacts>(list, PageRequest.of(currentPage, pageSize), contactsList.size());
+
+		return bookPage;
 	}
 }
