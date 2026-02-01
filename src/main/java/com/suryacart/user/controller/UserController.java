@@ -5,7 +5,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.suryacart.user.helper.Message;
 import com.suryacart.user.model.dto.ContactDTO;
+import com.suryacart.user.model.entity.Contacts;
 import com.suryacart.user.service.ContactService;
 import com.suryacart.user.service.UserService;
 
@@ -75,9 +82,24 @@ public class UserController {
 
 	//Show all contacts handler
 	@GetMapping("/show-contacts")
-	public String showContacts(Model model, Principal principal) {
+	public String showContacts(Model model, Principal principal, @RequestParam("page") Optional<Integer> page,
+			@RequestParam("size") Optional<Integer> size) {
+		int currentPage = page.orElse(1);
+		int pageSize = size.orElse(5);
 		model.addAttribute("title", "Show Contacts");
-		model.addAttribute("contacts", contactService.getContactsByUser(principal.getName()));
+		Page<Contacts> contactPage =
+				contactService.getContactsByUser(principal.getName(), PageRequest.of(currentPage - 1, pageSize));
+
+		model.addAttribute("contactPage", contactPage);
+		int totalPages = contactPage.getTotalPages();
+		if (totalPages > 0) {
+			List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+					.boxed()
+					.collect(Collectors.toList());
+			model.addAttribute("pageNumbers", pageNumbers);
+		}
+
+
 		return "/normal/show_contacts";
 	}
 

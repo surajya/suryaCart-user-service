@@ -17,12 +17,13 @@
 					<h2 class="text-center mb-4">📇 Your Contacts</h2>
 
 					<!-- When no contacts -->
-					<div th:if="${#lists.isEmpty(contacts)}"
+					<div th:if="${#lists.isEmpty(contactPage.content)}"
 						class="alert alert-info text-center">No contacts found.
 						Please add a new contact.</div>
 
 					<!-- Contacts table -->
-					<div class="table-container" th:if="${!#lists.isEmpty(contacts)}">
+					<div class="table-container"
+						th:if="${!#lists.isEmpty(contactPage.content)}">
 						<table class="table table-hover align-middle">
 							<thead class="table-light">
 								<tr>
@@ -37,8 +38,8 @@
 							</thead>
 
 							<tbody>
-								<tr th:each="contact, stat : ${contacts}">
-									<td th:text="${stat.count}">1</td>
+								<tr th:each="contact, stat : ${contactPage.content}">
+									<td th:text="${stat.index + 1 + (contactPage.number * contactPage.size)}">1</td>
 
 									<!-- Image -->
 									<td><strong th:text="${contact.imageId}">ImageID</strong><br>
@@ -64,6 +65,28 @@
 								</tr>
 							</tbody>
 						</table>
+						<div class="pagination" th:if="${contactPage.totalPages > 0}">
+
+							<!-- Prev -->
+							<a th:if="${contactPage.hasPrevious()}"
+								th:href="@{/userControll/show-contacts(page=${contactPage.number}, size=${contactPage.size})}">
+								« Prev </a>
+
+							<!-- Page Numbers -->
+							<a th:each="pageNumber : ${pageNumbers}"
+								th:href="@{/userControll/show-contacts(page=${pageNumber}, size=${contactPage.size})}"
+								th:text="${pageNumber}"
+								th:class="${pageNumber == contactPage.number + 1} ? active">
+							</a>
+
+							<!-- Next -->
+							<a th:if="${contactPage.hasNext()}"
+								th:href="@{/userControll/show-contacts(page=${contactPage.number + 2}, size=${contactPage.size})}">
+								Next » </a>
+
+						</div>
+
+
 					</div>
 				</div>
 			</div>
