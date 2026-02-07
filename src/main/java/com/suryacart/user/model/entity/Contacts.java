@@ -1,6 +1,5 @@
 package com.suryacart.user.model.entity;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
@@ -9,8 +8,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,7 +20,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Contacts {
+public class Contacts extends BaseEntity {
 
 	@Id
 	@GeneratedValue
@@ -47,19 +44,4 @@ public class Contacts {
 
 	private String imageId;
 
-	private LocalDateTime createdAt;
-	private LocalDateTime updatedAt;
-	private String createdBy;
-	private String updatedBy;
-
-	@PrePersist
-	void onCreate() {
-		this.createdAt = LocalDateTime.now();
-		this.updatedAt = LocalDateTime.now();
-	}
-
-	@PreUpdate
-	void onUpdate() {
-		this.updatedAt = LocalDateTime.now();
-	}
 }
