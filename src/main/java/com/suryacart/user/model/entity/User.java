@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -41,6 +42,11 @@ public class User extends BaseEntity {
 	@NotBlank
 	@Size(min = 8, max = 60)
 	private String password;
+
+	@NotBlank
+	@Size(min = 8, max = 60)
+	@Transient
+	private String confirmPassword;
 
 	private String image;
 
