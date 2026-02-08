@@ -1,5 +1,8 @@
 package com.suryacart.user.model.dto;
 
+import com.suryacart.user.annotations.FieldsValueMatch;
+import com.suryacart.user.annotations.PasswordValidator;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -12,6 +15,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldsValueMatch(field = "password", fieldMatch = "confirmPassword", message = "Passwords do not match")
+
 public class UserDTO {
 
 	@NotBlank(message = "Name is required")
@@ -24,7 +29,13 @@ public class UserDTO {
 
 	@NotBlank(message = "Password is required")
 	@Size(min = 8, max = 60, message = "Password must be between 8 and 60 characters")
+	@PasswordValidator(message = "Password must be strong")
 	private String password;
+
+	@NotBlank(message = "Confirm Password is required")
+	@Size(min = 8, max = 60, message = "Password must be between 8 and 60 characters")
+	@PasswordValidator(message = "Password must be strong")
+	private String confirmPassword;
 
 	@NotBlank(message = "Role is required")
 	private String role;

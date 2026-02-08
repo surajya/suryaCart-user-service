@@ -48,19 +48,20 @@ public class HomeController {
 
 			if (result.hasErrors()) {
 				model.addAttribute("userDTO", userDTO);
+				log.info("Error: " + result.toString());
 				return "Signup";
 			}
 
 			userService.registerUser(userDTO);
 			session.setAttribute("message", new Message("Successfully sign up!!", "alert-success"));
-			model.addAttribute("userDTO", new UserDTO());
 
 		} catch (Exception e) {
 			session.setAttribute("message", new Message("Error: " + e.getMessage(), "alert-danger"));
 			model.addAttribute("userDTO", userDTO);
+			return "Signup";
 		}
 
-		return "Signup";
+		return "redirect:/Signup";
 	}
 
 	@GetMapping("/signin")
