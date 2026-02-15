@@ -127,4 +127,17 @@ public class UserController {
 		}
 	}
 
+	//Show contact details handler
+	@GetMapping("/contact/{email}")
+	public String showContactDetails(@PathVariable String email, Model model, Principal principal) {
+		Contacts contact = contactService.getContactByEmail(email);
+		if (contact == null) {
+			session.setAttribute("message", new Message("Contact not found or you don't have access!", "alert-danger"));
+			return "redirect:/userControll/show-contacts";
+		}
+		model.addAttribute("contact", contact);
+		model.addAttribute("title", "Contact Details");
+		return "/normal/ViewContact";
+	}
+
 }

@@ -71,30 +71,28 @@
     
 <!-- TinyMCE CDN -->
 <!-- Place the first <script> tag in your HTML's <head> -->
-<script src="https://cdn.tiny.cloud/1/rg5xy9l2ffeimm5cukaxyo3ddd5kqxvv38uf7tfjv7558q4p/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script>
+<script src="https://cdn.tiny.cloud/1/rg5xy9l2ffeimm5cukaxyo3ddd5kqxvv38uf7tfjv7558q4p/tinymce/8/tinymce.min.js"
+        referrerpolicy="origin"
+        crossorigin="anonymous"></script>
 
-<!-- Place the following <script> and <textarea> tags your HTML's <body> -->
 <script>
   tinymce.init({
     selector: 'textarea',
+
     plugins: [
-      // Core editing features
-      'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
-      // Your account includes a free trial of TinyMCE premium features
-      // Try the most popular premium features until Feb 8, 2026:
-      'checklist', 'mediaembed', 'casechange', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'advtemplate', 'ai', 'uploadcare', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown','importword', 'exportword', 'exportpdf'
+      // ✅ Free plugins only
+      'anchor',  'autolink',  'charmap',  'codesample',  'emoticons',  'link',  'lists',  'media',   'searchreplace',  'table',  'visualblocks',
+      'wordcount'
     ],
-    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography uploadcare | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-    tinycomments_mode: 'embedded',
-    tinycomments_author: 'Author name',
-    mergetags_list: [
-      { value: 'First.Name', title: 'First Name' },
-      { value: 'Email', title: 'Email' },
-    ],
-    ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
-    uploadcare_public_key: 'b159ea9ef0504d58004f',
+
+    toolbar:
+      'undo redo | blocks | bold italic underline | ' +
+      'alignleft aligncenter alignright | ' +
+      'bullist numlist | link media table | ' +
+      'emoticons charmap | removeformat'
   });
 </script>
+
     
 </section>
 
