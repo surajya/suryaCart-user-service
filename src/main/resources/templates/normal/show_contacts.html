@@ -42,7 +42,7 @@
 									<td th:text="${stat.index + 1 + (contactPage.number * contactPage.size)}">1</td>
 
 									<!-- Image -->
-									<td><strong th:text="${contact.imageId}">ImageID</strong><br>
+									<td><img class = "image_show" alt="default.jpg" th:src="@{'/img/'+${contact.imageId}}"> <br>
 									</td>
 
 									<td><strong th:text="${contact.name}">Name</strong><br>
@@ -55,10 +55,10 @@
 
 									<!-- Actions -->
 									<td class="action-col"><a
-										th:href="@{'/contact/' + ${contact.id}}"
+										th:href="@{'/userControll/contact/' + ${contact.email}}"
 										class="btn btn-sm btn-primary">View</a> <a
 										th:href="@{'/contact/edit/' + ${contact.id}}"
-										class="btn btn-sm btn-warning">Edit</a> <a
+										class="btn btn-sm btn-warning">Update</a> <a
 										th:href="@{'/contact/delete/' + ${contact.id}}"
 										class="btn btn-sm btn-danger"
 										onclick="return confirm('Are you sure?')"> Delete </a></td>

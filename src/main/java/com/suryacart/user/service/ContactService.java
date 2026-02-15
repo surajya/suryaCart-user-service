@@ -16,4 +16,6 @@ public interface ContactService {
 
 	Page<Contacts> getContactsByUser(String username, Pageable pageable);
 
+	Contacts getContactByEmail(String email);
+
 }

@@ -43,8 +43,6 @@ public class User extends BaseEntity {
 	@Size(min = 8, max = 60)
 	private String password;
 
-	@NotBlank
-	@Size(min = 8, max = 60)
 	@Transient
 	private String confirmPassword;
 

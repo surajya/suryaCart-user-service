@@ -158,3 +158,43 @@ body {
 .pagination a.active {
     pointer-events: none;
 }
+
+.image_show{
+	    width: 30px;
+    height: 30px;
+    border-radius: 20%;
+    object-fit: contain;
+    
+}
+
+.image_show_profile {
+    width: 70px;
+    height: 70px;
+    border-radius: 20%;
+    object-fit: contain;
+    background-color: #f8f9fa;
+}
+
+.field-row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px dashed #e0e0e0;
+}
+
+.field-row:last-child {
+    border-bottom: none;
+}
+
+.label-title {
+    font-weight: 600;
+    color: #6c757d;
+}
+
+.value-text {
+    font-size: 1.05rem;
+    color: #212529;
+}
+
+

@@ -92,4 +92,10 @@ public class ContactServiceImpl implements ContactService {
 
 		return bookPage;
 	}
+
+	@Override
+	public Contacts getContactByEmail(String email) {
+
+		return contractRepository.findByEmail(email);
+	}
 }
