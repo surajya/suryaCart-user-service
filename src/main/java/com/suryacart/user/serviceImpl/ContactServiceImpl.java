@@ -54,17 +54,19 @@ public class ContactServiceImpl implements ContactService {
 
 	private void processContactAndAddImange(User user, MultipartFile imageFile, Contacts contacts) throws IOException {
 		contacts.setUser(user);
-		contacts.setImageId(contacts.getName() + "-" + imageFile.getOriginalFilename());
 		contacts.setCreatedBy(user.getName());
 		contacts.setUpdatedBy(user.getName());
 		user.getContacts().add(contacts);
 
 		// Here, you would typically handle the image file saving process.
 
-		File pathResource = new ClassPathResource("/static/img").getFile();
-		Path path = Paths.get(pathResource.getAbsolutePath() + File.separator + contacts.getImageId());
-		Files.copy(imageFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-		log.info("Image file saved successfully at: " + path.toString());
+		if (imageFile != null && !imageFile.isEmpty()) {
+			contacts.setImageId(contacts.getName() + "-" + imageFile.getOriginalFilename());
+			File pathResource = new ClassPathResource("/static/img").getFile();
+			Path path = Paths.get(pathResource.getAbsolutePath() + File.separator + contacts.getImageId());
+			Files.copy(imageFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+			log.info("Image file saved successfully at: " + path.toString());
+		}
 
 	}
 
@@ -97,5 +99,19 @@ public class ContactServiceImpl implements ContactService {
 	public Contacts getContactByEmail(String email) {
 
 		return contractRepository.findByEmail(email);
+	}
+
+	@Override
+	public void updateContact(ContactDTO contactDTO, MultipartFile imageFile, String username)
+			throws IllegalArgumentException, IOException {
+		Contacts existingContact = contractRepository.findByEmail(contactDTO.getEmail());
+		if (existingContact == null) {
+			throw new IllegalArgumentException("Contact with email " + contactDTO.getEmail() + " not found.");
+		}
+		User user = userRepository.getUserByUserName(username);
+		contactMapper.mapContactDTOToContact(contactDTO, existingContact);
+		existingContact.setDescription(contactDTO.getDescription().replaceAll("<p>", "").replaceAll("</p>", ""));
+		processContactAndAddImange(user, imageFile, existingContact);
+		contractRepository.save(existingContact);
 	}
 }

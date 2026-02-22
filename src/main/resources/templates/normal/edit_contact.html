@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{normal/baseN::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+    </style>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<section>
+    <div class="card mr-3 ml-3 ">
+        <div class="card-body">
+        	<!-- Alert Message -->
+        	<div th:if="${session.message != null}" th:classappend="${session.message.type}" class="alert alert-primary" role="alert">
+                <span th:text="${session.message.content}"></span>
+                </div>
+            <h3 class="text-center mb-4">✏️ Edit Contact Detail</h3>
+            <div class="container-fluid mt-1">
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        <form th:action="@{/userControll/contact/update-contact}" method="post" enctype="multipart/form-data"
+                              th:object="${contact}" class="mt-2">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Full Name</label>
+                                <input type="text" th:field="*{name}" class="form-control" id="name" name="name" placeholder="Enter your name"
+                                       required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="nickname" class="form-label">Nickname</label>
+                                <input type="text" th:field="*{nickname}" class="form-control" id="nickname" name="nickname" placeholder="Enter your nickname">
+                            </div>
+                            <div class="mb-3">
+                                <label for="work" class="form-label">Work</label>
+                                <input type="text" th:field="*{work}" class="form-control" id="work" name="work" placeholder="Enter your profession">
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" th:field="*{email}" class="form-control" id="email" name="email" placeholder="Enter your email"
+                                       required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="tel" th:field="*{phoneNumber}" class="form-control" id="phone" name="phoneNumber" placeholder="Enter your phone number"
+                                       required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="image" class="form-label">Upload Image</label>
+                                <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                            </div>
+								<div class="mb-3">
+								<label for="description" class="form-label">Description</label>
+                                <textarea class="form-control" th:field="*{description}" id="textarea" rows="3" name="description"
+                                          placeholder="Tell us something about yourself"></textarea>
+									
+								</div>
+								<div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                <button th:href="@{'/contact/open-update/' + ${contact.email}}" type="submit" class="btn btn-primary">Update</button>
+                                <button type="reset" class="btn btn-secondary">Reset</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+<!-- TinyMCE CDN -->
+<!-- Place the first <script> tag in your HTML's <head> -->
+<script src="https://cdn.tiny.cloud/1/rg5xy9l2ffeimm5cukaxyo3ddd5kqxvv38uf7tfjv7558q4p/tinymce/8/tinymce.min.js"
+        referrerpolicy="origin"
+        crossorigin="anonymous"></script>
+
+<script>
+  tinymce.init({
+    selector: 'textarea',
+
+    plugins: [
+      // ✅ Free plugins only
+      'anchor',  'autolink',  'charmap',  'codesample',  'emoticons',  'link',  'lists',  'media',   'searchreplace',  'table',  'visualblocks',
+      'wordcount'
+    ],
+
+    toolbar:
+      'undo redo | blocks | bold italic underline | ' +
+      'alignleft aligncenter alignright | ' +
+      'bullist numlist | link media table | ' +
+      'emoticons charmap | removeformat'
+  });
+</script>
+
+    
+</section>
+
+</body>
+</html>

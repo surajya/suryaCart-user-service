@@ -18,4 +18,7 @@ public interface ContactService {
 
 	Contacts getContactByEmail(String email);
 
+	void updateContact(ContactDTO contactDTO, MultipartFile imageFile, String username)
+			throws IllegalArgumentException, IOException;
+
 }
