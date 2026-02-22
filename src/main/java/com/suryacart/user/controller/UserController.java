@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.suryacart.user.helper.Message;
+import com.suryacart.user.mapper.ContactMapper;
 import com.suryacart.user.model.dto.ContactDTO;
 import com.suryacart.user.model.entity.Contacts;
 import com.suryacart.user.service.ContactService;
@@ -33,15 +34,18 @@ import com.suryacart.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/userControll")
+@Slf4j
 public class UserController {
 
 	private final UserService userService;
 	private final ContactService contactService;
 	private final HttpSession session;
+	private final ContactMapper contactMapper;
 
 	@ModelAttribute
 	public void getCommonData(Model model, Principal principal) {
@@ -55,6 +59,7 @@ public class UserController {
 		return "/normal/User_DashBoard";
 	}
 
+	//Open add contact form handler
 	@GetMapping("/addContact")
 	public String openAddContactForm(Model model) {
 
@@ -64,6 +69,7 @@ public class UserController {
 		return "/normal/add_contact_form";
 	}
 
+	//Process add contact form handler
 	@PostMapping("/process-contact")
 	public String processContact(@Valid @ModelAttribute("contactDTO") ContactDTO contactDTO,
 			@RequestParam("image") MultipartFile imageFile, Principal principal, Model model) {
@@ -137,7 +143,41 @@ public class UserController {
 		}
 		model.addAttribute("contact", contact);
 		model.addAttribute("title", "Contact Details");
-		return "/normal/ViewContact";
+		return "/normal/ViewContactProfile";
 	}
+
+	//Open update contact form handler
+	@GetMapping("/contact/open-update/{email}")
+	public String openUpdateContactForm(@PathVariable String email, Model model, Principal principal) {
+		Contacts contact = contactService.getContactByEmail(email);
+		if (contact == null) {
+			session.setAttribute("message", new Message("Contact not found or you don't have access!", "alert-danger"));
+			return "redirect:/userControll/show-contacts";
+		}
+		model.addAttribute("contact", contact);
+		model.addAttribute("title", "Update Contact");
+		return "/normal/edit_contact";
+	}
+
+	//Update contact handler
+	@PostMapping("/contact/update-contact")
+	public String updateContactDetails(@Valid @ModelAttribute("contactDTO") ContactDTO contactDTO,
+			@RequestParam("image") MultipartFile imageFile, Principal principal, Model model) {
+		Contacts contacts = new Contacts();
+		contactMapper.mapContactDTOToContact(contactDTO, contacts);
+
+		try {
+			log.info("Updating contact with email: {}", contactDTO.getEmail());
+			contactService.updateContact(contactDTO, imageFile, principal.getName());
+			session.setAttribute("message", new Message("Contact Updated Successfully!!", "alert-success"));
+			model.addAttribute("contact", new Contacts());
+		} catch (Exception e) {
+			session.setAttribute("message", new Message("Error: " + e.getMessage(), "alert-danger"));
+			model.addAttribute("contact", contacts);
+		}
+		model.addAttribute("title", "Update Contact");
+		return "/normal/edit_contact";
+	}
+
 
 }

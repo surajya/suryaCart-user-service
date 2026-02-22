@@ -103,10 +103,8 @@ body {
 
 							<!-- Actions -->
 							<div class="d-flex justify-content-center gap-3 mt-4">
-								<a th:href="@{'/userControll/edit-contact/' + ${contact.id}}"
-									class="btn btn-outline-primary"> ✏️ Edit </a> <a
-									th:href="@{/userControll/contacts}"
-									class="btn btn-outline-secondary"> 🔙 Back </a>
+								<a th:href="@{'/userControll/contact/open-update/' + ${contact.email}}" class="btn btn-outline-primary"> ✏️ Edit </a>
+								 <a	th:href="@{/userControll/show-contacts}" class="btn btn-outline-secondary"> 🔙 Back </a>
 							</div>
 
 						</div>
