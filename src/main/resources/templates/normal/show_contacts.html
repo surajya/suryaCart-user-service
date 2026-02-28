@@ -39,11 +39,12 @@
 
 							<tbody>
 								<tr th:each="contact, stat : ${contactPage.content}">
-									<td th:text="${stat.index + 1 + (contactPage.number * contactPage.size)}">1</td>
+									<td
+										th:text="${stat.index + 1 + (contactPage.number * contactPage.size)}">1</td>
 
 									<!-- Image -->
-									<td><img class = "image_show" alt="default.jpg" th:src="@{'/img/'+${contact.imageId}}"> <br>
-									</td>
+									<td><img class="image_show" alt="default.jpg"
+										th:src="@{'/img/'+${contact.imageId}}"> <br></td>
 
 									<td><strong th:text="${contact.name}">Name</strong><br>
 										<small class="text-muted" th:text="${contact.nickname}">Nickname</small>
@@ -57,11 +58,15 @@
 									<td class="action-col"><a
 										th:href="@{'/userControll/contact/' + ${contact.email}}"
 										class="btn btn-sm btn-primary">View</a> <a
-										th:href="@{'/contact/edit/' + ${contact.id}}"
-										class="btn btn-sm btn-warning">Update</a> <a
-										th:href="@{'/contact/delete/' + ${contact.id}}"
-										class="btn btn-sm btn-danger"
-										onclick="return confirm('Are you sure?')"> Delete </a></td>
+										th:href="@{'/userControll/contact/open-update/' + ${contact.email}}"
+										class="btn btn-sm btn-warning">Update</a>
+										<form
+											th:action="@{'/userControll/contact/delete/' + ${contact.email}}"
+											th:method="post" style="display: inline;"
+											onsubmit="return confirm('Are you sure?')">
+											<button type="submit" class="btn btn-sm btn-danger">Delete</button>
+										</form>
+									</td>
 								</tr>
 							</tbody>
 						</table>
