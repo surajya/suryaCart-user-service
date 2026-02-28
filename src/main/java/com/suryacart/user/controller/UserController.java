@@ -193,5 +193,12 @@ public class UserController {
 		return "redirect:/userControll/show-contacts";
 	}
 
+	//Handle user profile details request
+	@GetMapping("/profile")
+	public String userProfile(Model model, Principal principal) {
+		model.addAttribute("user", userService.findByUsername(principal.getName()));
+		return "/normal/ViewUserProfile";
+	}
+
 
 }
