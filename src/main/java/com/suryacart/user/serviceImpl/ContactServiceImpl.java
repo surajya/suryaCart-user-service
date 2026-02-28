@@ -114,4 +114,24 @@ public class ContactServiceImpl implements ContactService {
 		processContactAndAddImange(user, imageFile, existingContact);
 		contractRepository.save(existingContact);
 	}
+
+	@Override
+	public void deleteContactByEmail(String email, String name) {
+		// TODO Auto-generated method stub
+
+		if (email == null || email.isEmpty()) {
+			throw new IllegalArgumentException("Email is required to delete contact.");
+		} else {
+			Contacts contact = contractRepository.findByEmail(email);
+			if (contact == null) {
+				throw new IllegalArgumentException("Contact with email " + email + " not found.");
+			}
+			if (!contact.getUser().getEmail().equals(name)) {
+				throw new IllegalArgumentException("You don't have permission to delete this contact.");
+			}
+			contractRepository.delete(contact);
+			log.info("Contact with email {} deleted successfully by user {}", email, name);
+		}
+
+	}
 }

@@ -21,4 +21,6 @@ public interface ContactService {
 	void updateContact(ContactDTO contactDTO, MultipartFile imageFile, String username)
 			throws IllegalArgumentException, IOException;
 
+	void deleteContactByEmail(String email, String name);
+
 }

@@ -86,7 +86,7 @@ public class UserController {
 		return "/normal/add_contact_form";
 	}
 
-	//Show all contacts handler
+	//Show all contacts handler with help of pagination
 	@GetMapping("/show-contacts")
 	public String showContacts(Model model, Principal principal, @RequestParam("page") Optional<Integer> page,
 			@RequestParam("size") Optional<Integer> size) {
@@ -133,7 +133,7 @@ public class UserController {
 		}
 	}
 
-	//Show contact details handler
+	//Open contact Profile details
 	@GetMapping("/contact/{email}")
 	public String showContactDetails(@PathVariable String email, Model model, Principal principal) {
 		Contacts contact = contactService.getContactByEmail(email);
@@ -146,7 +146,7 @@ public class UserController {
 		return "/normal/ViewContactProfile";
 	}
 
-	//Open update contact form handler
+	//Open update contact form
 	@GetMapping("/contact/open-update/{email}")
 	public String openUpdateContactForm(@PathVariable String email, Model model, Principal principal) {
 		Contacts contact = contactService.getContactByEmail(email);
@@ -159,7 +159,7 @@ public class UserController {
 		return "/normal/edit_contact";
 	}
 
-	//Update contact handler
+	//Handle update contact form request
 	@PostMapping("/contact/update-contact")
 	public String updateContactDetails(@Valid @ModelAttribute("contactDTO") ContactDTO contactDTO,
 			@RequestParam("image") MultipartFile imageFile, Principal principal, Model model) {
@@ -177,6 +177,27 @@ public class UserController {
 		}
 		model.addAttribute("title", "Update Contact");
 		return "/normal/edit_contact";
+	}
+
+	//Handle delete contact request
+	@PostMapping("/contact/delete/{email}")
+	public String deleteContact(@PathVariable String email, Principal principal) {
+		try {
+			log.info("Deleting contact with email: {}", email);
+			contactService.deleteContactByEmail(email, principal.getName());
+			session.setAttribute("message", new Message("Contact Deleted Successfully!!", "alert-success"));
+		} catch (Exception e) {
+			session.setAttribute("message", new Message("Error: " + e.getMessage(), "alert-danger"));
+			log.error("Error deleting contact with email {}: {}", email, e.getMessage());
+		}
+		return "redirect:/userControll/show-contacts";
+	}
+
+	//Handle user profile details request
+	@GetMapping("/profile")
+	public String userProfile(Model model, Principal principal) {
+		model.addAttribute("user", userService.findByUsername(principal.getName()));
+		return "/normal/ViewUserProfile";
 	}
 
 
