@@ -1,4 +1,8 @@
 #http://localhost:8080/swagger-ui/index.html
+logging:
+  pattern:
+    console: logging.pattern.console=${CONSOLE_LOG_PATTERN:%green(%d{HH:mm:ss.SSS}) %blue(%-5level) %red([%thread]) %yellow(%logger{15}) - %cyan(%msg%n)}
+
 
 spring:
   datasource:
